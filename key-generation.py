@@ -6,8 +6,8 @@ def table_shift(array, table_array):
     return array_shifted
 
 def array_split(array):
-    left_split = array[:int(len(array) / 2)]
-    right_split = array[int(len(array) / 2):]
+    left_split = array[:5]
+    right_split = array[5:]
     return left_split, right_split
 
 def shifting_LtoR(array):
@@ -19,7 +19,7 @@ def shifting_LtoR(array):
 table_p_10 = np.array([3, 5, 2, 7, 4, 10, 1, 9, 8, 6])
 table_p_08 = np.array([6, 3, 7, 4, 8, 5, 10, 9])
 
-key = list('0001101101')
+key = list(input())
 
 def split_and_merge(key):
     left_split, right_split = array_split(key)
@@ -28,12 +28,16 @@ def split_and_merge(key):
 def key_generation_1(key, table):
     k = table_shift(key, table)
     key_merge = split_and_merge(k)
-    return table_shift(key_merge, table)
+    return table_shift(key_merge, table_p_08)
 
-def key_generation_2(key, table): return split_and_merge(key)
-
+def key_generation_2(key, table):
+    k = table_shift(key, table)
+    key_merge = split_and_merge(k)
+    key_merge = split_and_merge(key_merge)
+    key_merge = split_and_merge(key_merge)
+    return table_shift(key_merge, table_p_08)
 key_1 = key_generation_1(key, table_p_10)
-print("".join([str(elem) for elem in key_1]))  #1000111010
+print("".join([str(elem) for elem in key_1]))  
 
-key_2 = key_generation_2(key_1, table_p_08)
-print("".join([str(elem) for elem in key_2]))  #0001110101
+key_2 = key_generation_2(key, table_p_10)
+print("".join([str(elem) for elem in key_2]))  
